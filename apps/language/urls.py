@@ -3,5 +3,5 @@ from .views import ListCreateLanguageView, RetrieveUpdateDestroyLanguageView
 
 urlpatterns = [
     path('', ListCreateLanguageView.as_view()),
-    path('<int:pk>/', RetrieveUpdateDestroyLanguageView.as_view()),
+    path('<str:pk>/', RetrieveUpdateDestroyLanguageView.as_view()),
 ]

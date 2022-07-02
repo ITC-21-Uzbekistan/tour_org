@@ -8,7 +8,7 @@ class AbstractModel(models.Model):
     deleted_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=None,
                                    related_name='+')
     created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+', blank=True, null=True, default=None)
 
     class Meta:
         abstract = True
