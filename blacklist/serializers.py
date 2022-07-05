@@ -1,20 +1,21 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField, raise_errors_on_nested_writes
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, raise_errors_on_nested_writes, UUIDField
 from rest_framework.utils import model_meta
 import traceback
 
-from .models import Image, ContentImage
+from apps.gallery.models import Image, ContentImage, CategoryImage
 
 
 class ContentImageSerializer(ModelSerializer):
+
     class Meta:
         model = ContentImage
         fields = ['id', 'language', 'image', 'alt_text', 'description']
 
 
-class ImageOnlySerializer(ModelSerializer):
+class CategoryImageSerializer(ModelSerializer):
     class Meta:
-        model = Image
-        fields = '__all__'
+        model = CategoryImage
+        fields = "__all__"
 
 
 class ImageWithContentSerializer(ModelSerializer):

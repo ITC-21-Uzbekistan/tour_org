@@ -124,6 +124,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+DEFAULT_REQUEST_LANG = 'd664a42d-abb2-47cf-8aa0-fcec9b0fcc9e'
+
 TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
@@ -159,7 +161,11 @@ REDOC_SETTINGS = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
 
 SIMPLE_JWT = {
