@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from .models import Country, ContentCountry
+from apps.country.models import Country, ContentCountry
 from apps.gallery.serializers import ImageWithContentSerializer, ImageSerializerForUser
 
 

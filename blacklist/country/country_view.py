@@ -1,8 +1,8 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
-from ..models import Country
-from ..serializers import CountryWithContentSerializer
+from apps.country.models import Country
+from apps.country.serializers import CountryWithContentSerializer
 
 
 class CountryListCreateAPIView(ListCreateAPIView):

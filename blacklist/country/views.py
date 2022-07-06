@@ -3,8 +3,8 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.status import HTTP_200_OK
 
-from ..models import Country
-from ..serializers import CountrySerializerForUser
+from apps.country.models import Country
+from apps.country.serializers import CountrySerializerForUser
 
 
 class CountryListAPIView(ListAPIView):
