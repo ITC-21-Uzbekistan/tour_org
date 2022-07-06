@@ -13,10 +13,24 @@ class ImageSerializerForClient(ModelSerializer):
         fields = ['id', 'image', 'category', 'alt_text', 'description']
 
     def _get_alt_text(self, image):
-        return ContentImage.objects.get(image=image, language_id=self.context.get('language')).alt_text
+        try:
+            return ContentImage.objects.get(
+                image=image,
+                language_id=self.context.get('language')
+            ).alt_text
+        except Exception as e:
+            print(e)
+            return None
 
     def _get_description(self, image):
-        return ContentImage.objects.get(image=image, language_id=self.context.get('language')).description
+        try:
+            return ContentImage.objects.get(
+                image=image,
+                language_id=self.context.get('language')
+            ).description
+        except Exception as e:
+            print(e)
+            return None
 
 
 class CategoryImageSerializerForClient(ModelSerializer):
@@ -27,4 +41,13 @@ class CategoryImageSerializerForClient(ModelSerializer):
         fields = ['id', 'category_name', 'category_image']
 
     def _get_category_name(self, category):
-        return ContentCategoryImage.objects.get(category=category, language_id=self.context.get('language')).category_name
+        try:
+            category_name = ContentCategoryImage.objects.get(
+                category=category,
+                language_id=self.context.get('language')
+            ).category_name
+        except Exception as e:
+            print(e)
+            return None
+        else:
+            return category_name

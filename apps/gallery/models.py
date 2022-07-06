@@ -10,11 +10,20 @@ class CategoryImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category_image = models.ImageField(upload_to='category_image/')
 
+    class Meta:
+        db_table = 'category_image'
+        ordering = ['id']
+
 
 class ContentCategoryImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    category = models.ForeignKey(CategoryImage, on_delete=models.CASCADE, default=None)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     category_name = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'content_category_image'
+        ordering = ['id']
 
 
 class Image(AbstractModel):
