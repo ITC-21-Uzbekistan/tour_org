@@ -9,7 +9,13 @@ from apps.region.models import ContentRegion, Region
 class ContentRegionSerializer(ModelSerializer):
     class Meta:
         model = ContentRegion
-        fields = "__all__"
+        fields = (
+            'id',
+            'region',
+            'language',
+            'region_name',
+            'region_info',
+        )
 
 
 class RegionSerializerWithContent(ModelSerializer):
@@ -81,7 +87,7 @@ class RegionSerializerWithContent(ModelSerializer):
             else:
                 setattr(instance, attr, value)
 
-        instance.created_by = self.context.get('created_by')
+            instance.created_by = self.context.get('created_by')
         instance.save()
 
         for attr, value in m2m_fields:
