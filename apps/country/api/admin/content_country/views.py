@@ -18,3 +18,4 @@ class ContentCountryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = ContentCountrySerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
     renderer_classes = (CommonResultRenderer,)
+
