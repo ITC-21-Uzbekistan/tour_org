@@ -1,62 +1,34 @@
 import traceback
 
-from rest_framework.fields import SerializerMethodField
-from rest_framework.serializers import ModelSerializer, raise_errors_on_nested_writes
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, raise_errors_on_nested_writes
 from rest_framework.utils import model_meta
 
-from apps.gallery.models import ContentImage, CategoryImage, Image, ContentCategoryImage
+from apps.region.models import ContentRegion, Region
 
 
-class ContentImageSerializer(ModelSerializer):
+class ContentRegionSerializer(ModelSerializer):
     class Meta:
-        model = ContentImage
-        fields = (
-            'id',
-            'language',
-            'image',
-            'alt_text',
-            'description',
-        )
-
-
-class ContentCategoryImageSerializer(ModelSerializer):
-    class Meta:
-        model = ContentCategoryImage
+        model = ContentRegion
         fields = "__all__"
 
 
-class CategoryImageWithContentSerializer(ModelSerializer):
+class RegionSerializerWithContent(ModelSerializer):
     contents = SerializerMethodField('_get_contents')
 
     class Meta:
-        model = CategoryImage
+        model = Region
         fields = (
             'id',
-            'category_image',
-            'contents'
-        )
-        depth = 1
-
-    def _get_contents(self, category):
-        contents = ContentCategoryImage.objects.filter(category=category)
-        return ContentCategoryImageSerializer(contents, many=True).data
-
-
-class ImageWithContentSerializer(ModelSerializer):
-    contents = SerializerMethodField('_get_contents')
-
-    class Meta:
-        model = Image
-        fields = (
-            'id',
-            'image',
-            'category',
+            'region_name',
+            'region_url',
+            'region_meta_keywords',
+            'country',
             'created_at',
             'created_by',
+            'region_images',
             'contents',
         )
 
-    # override create method of serializer. This will get user as context and creates image
     def create(self, validated_data):
         raise_errors_on_nested_writes('create', self, validated_data)
 
@@ -98,7 +70,6 @@ class ImageWithContentSerializer(ModelSerializer):
 
         return instance
 
-    # override update method of serializer. This will get user as context and updates image
     def update(self, instance, validated_data):
         raise_errors_on_nested_writes('update', self, validated_data)
         info = model_meta.get_field_info(instance)
@@ -110,7 +81,6 @@ class ImageWithContentSerializer(ModelSerializer):
             else:
                 setattr(instance, attr, value)
 
-        # gets user from context and saves
         instance.created_by = self.context.get('created_by')
         instance.save()
 
@@ -120,6 +90,6 @@ class ImageWithContentSerializer(ModelSerializer):
 
         return instance
 
-    def _get_contents(self, image):
-        contents = ContentImage.objects.filter(image=image)
-        return ContentImageSerializer(contents, many=True).data
+    def _get_contents(self, region):
+        contents = ContentRegion.objects.filter(region=region)
+        return ContentRegionSerializer(contents, many=True)
