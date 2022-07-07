@@ -10,7 +10,6 @@ class Country(AbstractModel):
     country_name = models.CharField(max_length=255, null=True, blank=True)
     country_url = models.CharField(max_length=255)
     country_meta_keywords = models.CharField(max_length=500)
-
     country_images = models.ManyToManyField(Image, db_table='country_images', related_name='country_images')
 
     class Meta:
